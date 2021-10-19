@@ -4,7 +4,7 @@ from postal import parser
 import pandas as pd
 import geopandas as gpd
 
-import modules.arcgis_api
+import arcgis_api
 
 
 class Parse:
@@ -36,7 +36,7 @@ class Query:
             'where': 'propid = ' + propid,
             'outFields': '*'
             }
-        return modules.arcgis_api.Query.get_contents(
+        return arcgis_api.Query.get_contents(
             endpoint=Query.nsw_guras_endpoint,
             params=params,
             )
@@ -47,7 +47,7 @@ class Query:
             'where': 'propid IN ' + str(propids.to_list()).replace("'", "").replace('[', '(').replace(']', ')'),
             'outFields': '*'
             }
-        return modules.arcgis_api.Query.get_contents(
+        return arcgis_api.Query.get_contents(
             endpoint=Query.nsw_guras_endpoint,
             params=params,
             )

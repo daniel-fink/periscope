@@ -15,7 +15,7 @@ from tqdm import trange
 from bs4 import BeautifulSoup
 import mechanize
 
-import modules.http_methods
+import http_methods
 
 
 class Auth:
@@ -37,7 +37,7 @@ class Auth:
             }
         operation = 'token'
 
-        response = modules.http_methods.Execute.post(
+        response = http_methods.Execute.post(
             endpoint=endpoint,
             operation=operation,
             params=params
@@ -74,7 +74,7 @@ class Query:
         operation = 'address?q=' + str(urllib.parse.quote(address))
         # For some reason, Requests lib params doesn't work with the address query; instead put it in the operation...
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             headers={"Authorization": 'Bearer ' + access_token}

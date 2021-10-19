@@ -49,7 +49,7 @@ def append_dimensions(geodataframe: gpd.GeoDataFrame):
 # parcels.info()
 #
 # properties_foo['propertyvaluerange'] = properties_foo.progress_apply(
-#     lambda property : modules.corelogic_api.Query
+#     lambda property : corelogic_api.Query
 #         .get_property_value_range(
 #         address=property['fulladdress'],
 #         access_token=access_token),

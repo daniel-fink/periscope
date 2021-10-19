@@ -12,8 +12,9 @@ from arcgis.geometry import Geometry
 from arcgis2geojson import arcgis2geojson
 from tqdm import trange
 
-import modules.http_methods
-import modules.geospatial
+import http_methods
+import geospatial
+
 
 class Query:
     @dataclass
@@ -43,7 +44,7 @@ class Query:
         object_ids_params = dict(params)
         object_ids_params.update(query_params)
 
-        response = modules.http_methods.Execute.post(
+        response = http_methods.Execute.post(
             endpoint=endpoint,
             operation='query?',
             params=object_ids_params,
@@ -105,7 +106,7 @@ class Query:
         ids_contents_params = dict(params)
         ids_contents_params.update(ids_params)
 
-        response = modules.http_methods.Execute.post(
+        response = http_methods.Execute.post(
             endpoint=endpoint,
             operation='query',
             params=ids_contents_params,
@@ -123,7 +124,7 @@ class Query:
                     return None
                 else:
                     geojson = [arcgis2geojson(feature) for feature in contents['features']]
-                    return modules.geospatial.Convert.geojson_to_gdf(geojson)
+                    return geospatial.Convert.geojson_to_gdf(geojson)
 
             else:
                 print('Request returned unknown response: ' + str(response.json()) +
@@ -194,7 +195,7 @@ class Query:
                 )
             contents.append(contents_of_ids)
 
-        return modules.geospatial.Convert.dfs_to_gdf(dfs=contents, crs=contents[0].crs)
+        return geospatial.Convert.dfs_to_gdf(dfs=contents, crs=contents[0].crs)
 
     @staticmethod
     def get_metadata(
@@ -209,7 +210,7 @@ class Query:
         """
 
         metadata_operation = '?f=json'
-        metadata_response = modules.http_methods.Execute.post(
+        metadata_response = http_methods.Execute.post(
             endpoint=endpoint,
             operation=metadata_operation,
             headers=headers

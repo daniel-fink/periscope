@@ -1,14 +1,11 @@
 import ast
-import pytest
-import pandas as pd
-import geopandas as gpd
-import arcgis
-from shapely import geometry
 
-from modules import http_methods, arcgis_api, corelogic_api
+import arcgis
+import geopandas as gpd
+
 
 # import importlib
-# importlib.import_module('modules.request', __name__)
+# importlib.import_module('request', __name__)
 # Pytests file.
 # Note: gathers tests according to a naming convention.
 # By default any file that is to contain tests must be named starting with 'test_',

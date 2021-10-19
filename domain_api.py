@@ -14,7 +14,7 @@ import requests
 
 from tqdm import trange
 
-import modules.http_methods
+import http_methods
 
 api_key = 'key_0cba2025f98ea0d319cdbd6d940285ee'
 
@@ -42,7 +42,7 @@ class Query:
             'X-API-Key': api_key
             }
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=params,
@@ -99,7 +99,7 @@ class Query:
         if (not params['postCode']) | (params['postCode'] is None) | (params['postCode'] == '<NA>'):
             del params['postCode']
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=params,
@@ -142,7 +142,7 @@ class Query:
             'X-API-Key': api_key
             }
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=params,
@@ -189,7 +189,7 @@ class Query:
             'X-API-Key': api_key
             }
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=params,
@@ -231,7 +231,7 @@ class Query:
             }
         params = {}
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=params,
@@ -261,7 +261,7 @@ class Query:
             'X-API-Key': api_key
             }
 
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=params,
@@ -270,7 +270,7 @@ class Query:
 
         if response is not None:
             contents = ast.literal_eval(str(response.json()))
-            contents = {key, str(value) for key, value in contents.items()}
+            contents = {(key, str(value)) for key, value in contents.items()}
             row = pd.DataFrame(contents)
             return contents
         else:
@@ -314,7 +314,7 @@ class Query:
                     }
                 params.update(performance_categories)
 
-                response = modules.http_methods.Execute.get(
+                response = http_methods.Execute.get(
                     endpoint=endpoint,
                     operation=operation,
                     params=params,
@@ -338,7 +338,7 @@ class Query:
 
         land_params = {'propertyCategory': 'land'}
         land_params.update(params)
-        response = modules.http_methods.Execute.get(
+        response = http_methods.Execute.get(
             endpoint=endpoint,
             operation=operation,
             params=land_params,
