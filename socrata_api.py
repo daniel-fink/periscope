@@ -9,7 +9,7 @@ import geopandas as gpd
 import sodapy
 from tqdm import trange
 
-from modules import http_methods
+import http_methods
 
 
 class Query:
