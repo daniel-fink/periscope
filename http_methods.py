@@ -97,17 +97,17 @@ class Execute:
             params=params)
         prepared = request.prepare()
 
-        try:
-            response = session.send(request=prepared)
-            if response.status_code == 200:
-                return response
-            else:
-                print('HTTP GET error for url: ' + str(prepared.url) +
-                      '. Response: ' + str(response.status_code) + ' ' + str(response.json()))
-                return None
+        response = session.send(request=prepared)
+        if response.status_code == 200:
+            return response
+        else:
+            print('HTTP GET error for url: ' + str(prepared.url) +
+                  '. Response: ' + str(response.status_code) + ' ' + str(response))
+            return response
 
-        except Exception as e:
-            print(
-                'HTTP GET error for url: ' + str(prepared.url) +
-                '. Exception: ' + str(e))
-            return None
+        # except Exception as e:
+        #     print(
+        #         'HTTP GET error for url: ' + str(prepared.url) +
+        #         'No status code. ' +
+        #         '. Exception: ' + str(e))
+        #     return response

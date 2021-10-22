@@ -16,12 +16,11 @@ from tqdm import trange
 
 import http_methods
 
-api_key = 'key_0cba2025f98ea0d319cdbd6d940285ee'
-
 
 class Query:
     @staticmethod
     def get_suburb_id(
+            api_key: str,
             suburb: str,
             state: str
             ):
@@ -39,7 +38,8 @@ class Query:
             'state': state
             }
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
 
         response = http_methods.Execute.get(
@@ -56,6 +56,7 @@ class Query:
 
     @staticmethod
     def get_address_id(
+            api_key: str,
             street_number: str,
             street_name: str,
             street_type: str,
@@ -90,7 +91,8 @@ class Query:
             'postCode': postcode
             }
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
 
         if (not params['unitNumber']) | (params['unitNumber'] is None) | (params['unitNumber'] == '<NA>'):
@@ -123,15 +125,15 @@ class Query:
 
     @staticmethod
     def get_property_id(
+            api_key: str,
             address: str
             ):
         """
-
         :param address:
-        :param number_matches:
+        :param api_key:
         :return:
         """
-        endpoint = 'https://api.domain.com.au//v1/properties/'
+        endpoint = 'https://api.domain.com.au/v1/properties/'
         operation = '_suggest'
         params = {
             'terms': address,
@@ -139,7 +141,8 @@ class Query:
             'channel': 'All'
             }
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
 
         response = http_methods.Execute.get(
@@ -157,6 +160,7 @@ class Query:
                 result['domain_id'] = contents['id']
 
                 address_ids = Query.get_address_id(
+                    api_key=api_key,
                     unit_number=result['unitNumber'],
                     street_number=result['streetNumber'],
                     street_name=result['streetName'],
@@ -171,6 +175,7 @@ class Query:
 
     @staticmethod
     def get_demographics(
+            api_key: str,
             suburb: str,
             postcode: str,
             state: str
@@ -186,7 +191,8 @@ class Query:
         operation = ''
         params = {}
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
 
         response = http_methods.Execute.get(
@@ -213,6 +219,7 @@ class Query:
 
     @staticmethod
     def get_suburb_data(
+            api_key: str,
             state: str,
             suburb_id: str
             ):
@@ -227,7 +234,8 @@ class Query:
         endpoint = 'https://api.domain.com.au/v1/locations/profiles/' + suburb_id
         operation = ''
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
         params = {}
 
@@ -247,6 +255,7 @@ class Query:
 
     @staticmethod
     def get_property_data(
+            api_key: str,
             property_id: str
             ):
         """
@@ -258,7 +267,8 @@ class Query:
         operation = ''
         params = {}
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
 
         response = http_methods.Execute.get(
@@ -278,6 +288,7 @@ class Query:
 
     @staticmethod
     def get_suburb_performance(
+            api_key: str,
             state: str,
             suburb_id: str
             ):
@@ -292,7 +303,8 @@ class Query:
         endpoint = 'https://api.domain.com.au/v1/'
         operation = 'suburbPerformanceStatistics'
         headers = {
-            'X-API-Key': api_key
+            'X-API-Key': api_key,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
             }
         params = {
             'state': state,

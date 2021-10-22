@@ -1,8 +1,10 @@
 import pandas as pd
+import os
 
 import corelogic_api
 import http_methods
 import arcgis_api
+import domain_api
 
 # import importlib
 # importlib.import_module('request', __name__)
@@ -68,8 +70,8 @@ class TestArcGisAPI:
 
 class TestCorelogicAPI:
     response_access_token = corelogic_api.Auth.get_access_token(
-        client_id='IezWLp3g7sXmvlO5lrs9heJG8xAG7hTB',
-        client_secret='vm908mrRAsVkHycf')
+        client_id=os.environ['CORELOGIC_CLIENT_ID'],
+        client_secret=os.environ['CORELOGIC_CLIENT_SECRET'])
 
     def test_get_access_token(self):
         assert TestCorelogicAPI.response_access_token is not None
@@ -87,3 +89,11 @@ class TestCorelogicAPI:
 
     def test_get_property_valuerange(self):
         print(TestCorelogicAPI.property_value_range)
+
+
+class TestDomainAPI:
+    def test_get_property_id(self):
+        id = domain_api.Query.get_property_id(api_key=os.environ['DOMAIN_API_KEY'],
+                                              address='63 Boronia Rd Bellevue Hill NSW 2023')
+        assert id['domain_id'] == 'ZE-8704-SB'
+        assert id['domain_id_address'] == 4954725
