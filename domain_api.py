@@ -161,13 +161,14 @@ class Query:
 
                 address_ids = Query.get_address_id(
                     api_key=api_key,
-                    unit_number=result['unitNumber'],
-                    street_number=result['streetNumber'],
-                    street_name=result['streetName'],
-                    street_type=result['streetTypeLong'],
-                    suburb=result['suburb'],
-                    state=result['state'],
-                    postcode=result['postCode'])
+                    unit_number=result['unitNumber'] if 'unitNumber' in result else None,
+                    street_number=result['streetNumber'] if 'streetNumber' in result else None,
+                    street_name=result['streetName'] if 'streetName' in result else None,
+                    street_type=result['streetTypeLong'] if 'streetTypeLong' in result else None,
+                    suburb=result['suburb'] if 'suburb' in result else None,
+                    state=result['state'] if 'state' in result else None,
+                    postcode=result['postCode'] if 'postCode' in result else None
+                    )
                 result.update(address_ids)
                 return result
         else:
